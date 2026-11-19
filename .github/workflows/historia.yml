@@ -1,0 +1,20 @@
+name: Historia
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  historia:
+    name: Historia de la imagen
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar la imagen publicada
+        env:
+          IMAGEN: ghcr.io/ceschi-profe/api-tareas-t5:f83bdd8a81c6dec2eb0783a4710c618e932fb618
+        run: docker pull "$IMAGEN"
+
+      - name: Ver sus capas
+        env:
+          IMAGEN: ghcr.io/ceschi-profe/api-tareas-t5:f83bdd8a81c6dec2eb0783a4710c618e932fb618
+        run: docker history "$IMAGEN"

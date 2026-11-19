@@ -1,0 +1,25 @@
+name: Capas
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  capas:
+    name: Capas y cache
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Primera construccion
+        run: docker build -t capas:uno .
+
+      - name: Cambiar solo el codigo y construir otra vez
+        run: |
+          echo "# cambio de prueba" >> app/__init__.py
+          docker build -t capas:dos .
+
+      - name: Cambiar requirements.txt y construir otra vez
+        run: |
+          echo "# cambio de prueba" >> requirements.txt
+          docker build -t capas:tres .
